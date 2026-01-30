@@ -1,3 +1,30 @@
 {
-  "argument.generator.invalid": "Invalid generator: %s"
+  "argument.generator.invalid": "Invalid generator: %s",
+
+  "command.ores4gen.info.title": "Ores4Gen v1.0 by Aloyenz",
+  "command.ores4gen.info.subtitle": "From foxes with love",
+
+  "command.ores4gen.reload.start": "⟳ Reloading configuration...",
+  "command.ores4gen.reload.success": "✔ Configuration reloaded successfully!",
+  "command.ores4gen.reload.error": "✘ Failed to reload configuration: %s",
+
+  "command.ores4gen.state.title": "Generator States Overview",
+  "command.ores4gen.state.global": "[GLOBAL]",
+  "command.ores4gen.state.enabled": "✔ ENABLED",
+  "command.ores4gen.state.disabled": "✘ DISABLED",
+  "command.ores4gen.state.enabled_lower": "✔ Enabled",
+  "command.ores4gen.state.disabled_lower": "✘ Disabled",
+
+  "command.ores4gen.generator.title": "Generator:",
+  "command.ores4gen.generator.status": "Status:",
+  "command.ores4gen.generator.chances": "Generation Chances:",
+  "command.ores4gen.generator.global_info": "ℹ Global switch controls all generators",
+
+  "command.ores4gen.set.enabled": "✔ Generator %s has been enabled!",
+  "command.ores4gen.set.disabled": "✘ Generator %s has been disabled!",
+  "command.ores4gen.set.invalid": "✘ Invalid state! Use: enabled, disabled, or get",
+
+  "command.ores4gen.save.start": "Saving configuration...",
+  "command.ores4gen.save.success": "✔ Configuration saved successfully!",
+  "command.ores4gen.save.error": "✘ Failed to save configuration: %s"
 }

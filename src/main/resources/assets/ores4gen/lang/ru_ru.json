@@ -1,3 +1,30 @@
 {
-  "argument.generator.invalid": "Неверный генератор: %s"
+  "argument.generator.invalid": "Неверный генератор: %s",
+
+  "command.ores4gen.info.title": "Ores4Gen v1.0 от Aloyenz",
+  "command.ores4gen.info.subtitle": "От лисичек с любовью",
+
+  "command.ores4gen.reload.start": "⟳ Перезагрузка конфигурации...",
+  "command.ores4gen.reload.success": "✔ Конфигурация успешно перезагружена!",
+  "command.ores4gen.reload.error": "✘ Не удалось перезагрузить конфигурацию: %s",
+
+  "command.ores4gen.state.title": "Обзор состояний генераторов",
+  "command.ores4gen.state.global": "[ГЛОБАЛЬНО]",
+  "command.ores4gen.state.enabled": "✔ ВКЛЮЧЕНО",
+  "command.ores4gen.state.disabled": "✘ ВЫКЛЮЧЕНО",
+  "command.ores4gen.state.enabled_lower": "✔ Включено",
+  "command.ores4gen.state.disabled_lower": "✘ Выключено",
+
+  "command.ores4gen.generator.title": "Генератор:",
+  "command.ores4gen.generator.status": "Статус:",
+  "command.ores4gen.generator.chances": "Шансы генерации:",
+  "command.ores4gen.generator.global_info": "ℹ Глобальный переключатель управляет всеми генераторами",
+
+  "command.ores4gen.set.enabled": "✔ Генератор %s включён!",
+  "command.ores4gen.set.disabled": "✘ Генератор %s выключен!",
+  "command.ores4gen.set.invalid": "✘ Неверное состояние! Используйте: enabled, disabled или get",
+
+  "command.ores4gen.save.start": "Сохранение конфигурации...",
+  "command.ores4gen.save.success": "✔ Конфигурация успешно сохранена!",
+  "command.ores4gen.save.error": "✘ Не удалось сохранить конфигурацию: %s"
 }

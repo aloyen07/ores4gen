@@ -63,46 +63,47 @@ public class MainCommand {
 
     private static int getInfo(CommandContext<ServerCommandSource> context) throws CommandSyntaxException {
         context.getSource().sendFeedback(() -> Text.literal("═══════════════════════════════════").formatted(Formatting.GOLD), false);
-        context.getSource().sendFeedback(() -> Text.literal("    Ores4Gen v1.0 by Aloyenz").formatted(Formatting.YELLOW, Formatting.BOLD), false);
-        context.getSource().sendFeedback(() -> Text.literal("    From foxes with love").formatted(Formatting.LIGHT_PURPLE, Formatting.ITALIC), false);
+        context.getSource().sendFeedback(() -> Text.translatable("command.ores4gen.info.title").formatted(Formatting.YELLOW, Formatting.BOLD), false);
+        context.getSource().sendFeedback(() -> Text.translatable("command.ores4gen.info.subtitle").formatted(Formatting.LIGHT_PURPLE, Formatting.ITALIC), false);
         context.getSource().sendFeedback(() -> Text.literal("═══════════════════════════════════").formatted(Formatting.GOLD), false);
         return 1;
     }
 
     private static int reload(CommandContext<ServerCommandSource> context) throws CommandSyntaxException {
         try {
-            context.getSource().sendFeedback(() -> Text.literal("⟳ Reloading configuration...").formatted(Formatting.YELLOW), false);
+            context.getSource().sendFeedback(() -> Text.translatable("command.ores4gen.reload.start").formatted(Formatting.YELLOW), false);
             Generators.reload();
-            context.getSource().sendFeedback(() -> Text.literal("✔ Configuration reloaded successfully!").formatted(Formatting.GREEN, Formatting.BOLD), true);
+            context.getSource().sendFeedback(() -> Text.translatable("command.ores4gen.reload.success").formatted(Formatting.GREEN, Formatting.BOLD), true);
             return 1;
         } catch (Exception e) {
-            context.getSource().sendError(Text.literal("✘ Failed to reload configuration: " + e.getMessage()).formatted(Formatting.RED));
+            context.getSource().sendError(Text.translatable("command.ores4gen.reload.error", e.getMessage()).formatted(Formatting.RED));
             return 0;
         }
     }
 
     private static int getStates(CommandContext<ServerCommandSource> context) throws CommandSyntaxException {
         context.getSource().sendFeedback(() -> Text.literal("═══════════════════════════════════").formatted(Formatting.AQUA), false);
-        context.getSource().sendFeedback(() -> Text.literal(" Generator States Overview").formatted(Formatting.AQUA, Formatting.BOLD), false);
+        context.getSource().sendFeedback(() -> Text.translatable("command.ores4gen.state.title").formatted(Formatting.AQUA, Formatting.BOLD), false);
         context.getSource().sendFeedback(() -> Text.literal("═══════════════════════════════════").formatted(Formatting.AQUA), false);
 
         for (Generator gen : Generator.values()) {
             if (gen == Generator.ALL) {
                 boolean globalEnabled = ConfigHolder.getInstance().enabled;
                 Formatting color = globalEnabled ? Formatting.GREEN : Formatting.RED;
-                String status = globalEnabled ? "✔ ENABLED" : "✘ DISABLED";
-                context.getSource().sendFeedback(() -> Text.literal("")
-                    .append(Text.literal("  [GLOBAL] ").formatted(Formatting.GOLD, Formatting.BOLD))
-                    .append(Text.literal(status).formatted(color, Formatting.BOLD)), false);
+                String statusKey = globalEnabled ? "command.ores4gen.state.enabled" : "command.ores4gen.state.disabled";
+                context.getSource().sendFeedback(() -> Text.literal("  ")
+                    .append(Text.translatable("command.ores4gen.state.global").formatted(Formatting.GOLD, Formatting.BOLD))
+                    .append(Text.literal(" "))
+                    .append(Text.translatable(statusKey).formatted(color, Formatting.BOLD)), false);
             } else {
                 boolean enabled = gen.isEnabled();
                 Formatting color = enabled ? Formatting.GREEN : Formatting.RED;
-                String status = enabled ? "✔ Enabled" : "✘ Disabled";
+                String statusKey = enabled ? "command.ores4gen.state.enabled_lower" : "command.ores4gen.state.disabled_lower";
                 String name = gen.getName().substring(0, 1).toUpperCase() + gen.getName().substring(1);
                 context.getSource().sendFeedback(() -> Text.literal("")
                     .append(Text.literal("  • ").formatted(Formatting.GRAY))
                     .append(Text.literal(name + ": ").formatted(Formatting.YELLOW))
-                    .append(Text.literal(status).formatted(color)), false);
+                    .append(Text.translatable(statusKey).formatted(color)), false);
             }
         }
 
@@ -118,19 +119,22 @@ public class MainCommand {
 
         switch (state) {
             case "get" -> {
-                context.getSource().sendFeedback(() -> Text.literal("Generator: ").formatted(Formatting.GOLD)
-                        .append(Text.literal(genName).formatted(Formatting.YELLOW, Formatting.BOLD)), false);
+                context.getSource().sendFeedback(() -> Text.translatable("command.ores4gen.generator.title").formatted(Formatting.GOLD)
+                        .append(Text.literal(" " + genName).formatted(Formatting.YELLOW, Formatting.BOLD)), false);
 
                 boolean enabled = generator.isEnabled();
                 Formatting statusColor = enabled ? Formatting.GREEN : Formatting.RED;
-                String status = enabled ? "✔ ENABLED" : "✘ DISABLED";
+                String statusKey = enabled ? "command.ores4gen.state.enabled" : "command.ores4gen.state.disabled";
 
-                context.getSource().sendFeedback(() -> Text.literal("  Status: ").formatted(Formatting.GOLD)
-                        .append(Text.literal(status).formatted(statusColor, Formatting.BOLD)), false);
+                context.getSource().sendFeedback(() -> Text.literal("  ")
+                        .append(Text.translatable("command.ores4gen.generator.status").formatted(Formatting.GOLD))
+                        .append(Text.literal(" "))
+                        .append(Text.translatable(statusKey).formatted(statusColor, Formatting.BOLD)), false);
 
                 GeneratorConfig config = generator.getConfig();
                 if (config != null && config.chances != null && !config.chances.isEmpty()) {
-                    context.getSource().sendFeedback(() -> Text.literal("  Generation Chances:").formatted(Formatting.AQUA), false);
+                    context.getSource().sendFeedback(() -> Text.literal("  ")
+                            .append(Text.translatable("command.ores4gen.generator.chances").formatted(Formatting.AQUA)), false);
 
                     double totalWeight = 0;
                     for (BlockGenerationChance chance : config.chances) {
@@ -169,35 +173,24 @@ public class MainCommand {
                                 .append(Text.literal(")").formatted(Formatting.DARK_GRAY)), false);
                     }
                 } else if (generator == Generator.ALL) {
-                    context.getSource().sendFeedback(() -> Text.literal("  ℹ Global switch controls all generators").formatted(Formatting.GRAY, Formatting.ITALIC), false);
+                    context.getSource().sendFeedback(() -> Text.literal("  ")
+                            .append(Text.translatable("command.ores4gen.generator.global_info").formatted(Formatting.GRAY, Formatting.ITALIC)), false);
                 }
 
                 return 1;
             }
             case "enabled" -> {
                 generator.enable();
-                context.getSource().sendFeedback(() -> Text.literal("")
-                        .append(Text.literal("✔ ").formatted(Formatting.GREEN, Formatting.BOLD))
-                        .append(Text.literal("Generator ").formatted(Formatting.WHITE))
-                        .append(Text.literal(genName).formatted(Formatting.YELLOW, Formatting.BOLD))
-                        .append(Text.literal(" has been ").formatted(Formatting.WHITE))
-                        .append(Text.literal("enabled").formatted(Formatting.GREEN, Formatting.BOLD))
-                        .append(Text.literal("!").formatted(Formatting.WHITE)), true);
+                context.getSource().sendFeedback(() -> Text.translatable("command.ores4gen.set.enabled", genName).formatted(Formatting.GREEN), true);
                 return 1;
             }
             case "disabled" -> {
                 generator.disable();
-                context.getSource().sendFeedback(() -> Text.literal("")
-                        .append(Text.literal("✘ ").formatted(Formatting.RED, Formatting.BOLD))
-                        .append(Text.literal("Generator ").formatted(Formatting.WHITE))
-                        .append(Text.literal(genName).formatted(Formatting.YELLOW, Formatting.BOLD))
-                        .append(Text.literal(" has been ").formatted(Formatting.WHITE))
-                        .append(Text.literal("disabled").formatted(Formatting.RED, Formatting.BOLD))
-                        .append(Text.literal("!").formatted(Formatting.WHITE)), true);
+                context.getSource().sendFeedback(() -> Text.translatable("command.ores4gen.set.disabled", genName).formatted(Formatting.RED), true);
                 return 1;
             }
             default -> {
-                context.getSource().sendError(Text.literal("✘ Invalid state! Use: enabled, disabled, or get").formatted(Formatting.RED));
+                context.getSource().sendError(Text.translatable("command.ores4gen.set.invalid").formatted(Formatting.RED));
                 return 0;
             }
         }
@@ -205,14 +198,12 @@ public class MainCommand {
 
     private static int save(CommandContext<ServerCommandSource> context) throws CommandSyntaxException {
         try {
-            context.getSource().sendFeedback(() -> Text.literal("Saving configuration...").formatted(Formatting.YELLOW), false);
+            context.getSource().sendFeedback(() -> Text.translatable("command.ores4gen.save.start").formatted(Formatting.YELLOW), false);
             ConfigHolder.saveConfig();
-            context.getSource().sendFeedback(() -> Text.literal("")
-                .append(Text.literal("✔ ").formatted(Formatting.GREEN, Formatting.BOLD))
-                .append(Text.literal("Configuration saved successfully!").formatted(Formatting.GREEN)), true);
+            context.getSource().sendFeedback(() -> Text.translatable("command.ores4gen.save.success").formatted(Formatting.GREEN), true);
             return 1;
         } catch (Exception e) {
-            context.getSource().sendError(Text.literal("✘ Failed to save configuration: " + e.getMessage()).formatted(Formatting.RED));
+            context.getSource().sendError(Text.translatable("command.ores4gen.save.error", e.getMessage()).formatted(Formatting.RED));
             return 0;
         }
     }
