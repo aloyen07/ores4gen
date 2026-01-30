@@ -141,6 +141,16 @@ Values:
  - `block`: The block ID to spawn. Required to be a valid block ID.
  - `chance`: The chance of the block to spawn. Required to be a positive number. Chance **IS NOT A PERCENTAGE**, it is a relative weight compared to other blocks. But for simplicity, we recommend using values that sum equals 100 or 1.
 
+## Commands
+
+This mod adds `ores4gen` command with the following subcommands:
+ - (none) / `info` - shows info about the mod.
+ - `reload` - reloads the config file.
+ - `state` - shows the current state of each generator type (enabled/disabled).
+ - `state <generator_type|all> <enabled|disabled>` - sets the state of a specific generator type.
+ - `state <generator_type|all> get` - get chances of a specific generator type (in percentage view).
+ - `saveToConfig` - saves the current enabled/disabled state of each generator type to the config file.
+
 ## License
 
 This project is licensed under the GPL-3.0 License - see the [LICENSE](LICENSE) file for details.
