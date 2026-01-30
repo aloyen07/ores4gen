@@ -1,0 +1,25 @@
+{
+  "schemaVersion": 1,
+  "id": "ores4gen",
+  "version": "${version}",
+  "name": "Ores4Gen",
+  "description": "Run outa here",
+  "authors": [],
+  "contact": {},
+  "license": "All-Rights-Reserved",
+  "icon": "assets/ores4gen/icon.png",
+  "environment": "*",
+  "entrypoints": {
+    "main": [
+      "ru.aloyenz.ores4gen.Ores4gen"
+    ]
+  },
+  "mixins": [
+    "ores4gen.mixins.json"
+  ],
+  "depends": {
+    "fabricloader": ">=${loader_version}",
+    "fabric-api": "*",
+    "minecraft": "${minecraft_version}"
+  }
+}
