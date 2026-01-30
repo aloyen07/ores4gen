@@ -3,10 +3,10 @@
   "id": "ores4gen",
   "version": "${version}",
   "name": "Ores4Gen",
-  "description": "Run outa here",
+  "description": "Adds chance to generate a some ores in the cobblestone/stone and other generators.",
   "authors": [],
   "contact": {},
-  "license": "All-Rights-Reserved",
+  "license": "GPL-3.0",
   "icon": "assets/ores4gen/icon.png",
   "environment": "*",
   "entrypoints": {
